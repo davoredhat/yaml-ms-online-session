@@ -11,7 +11,7 @@ import io.yaml.online.beans.OnlineSession;
 /**
  * A JAX-RS interface.  An implementation of this interface must be provided.
  */
-@Path("/onlinesessions")
+@Path("/online-session")
 public interface OnlineSessionResource {
 
   /**
@@ -24,8 +24,8 @@ public interface OnlineSessionResource {
   /**
    * Gets the details of a single instance of a `OnlineSession`.
    */
-  @Path("/{onlinesessionId}")
+  @Path("/{sessionId}")
   @GET
   @Produces("application/json")
-  OnlineSession getOnlineSession(@PathParam("onlinesessionId") String onlinesessionId);
+  OnlineSession getOnlineSession(@PathParam("sessionId") Long sessionId);
 }
