@@ -1,5 +1,5 @@
-io/yaml/online/beans/CustomField.class
-io/yaml/online/beans/OnlineSession.class
-io/yaml/online/beans/Procesar.class
-io/yaml/online/beans/ProgressField.class
-io/yaml/online/OnlinesessionsResource.class
+org/example/api/beans/Procesar.class
+org/example/api/beans/ProgressField.class
+org/example/api/OnlinesessionsResource.class
+org/example/api/beans/OnlineSession.class
+org/example/api/beans/CustomField.class
