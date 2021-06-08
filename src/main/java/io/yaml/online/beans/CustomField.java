@@ -1,46 +1,45 @@
 package io.yaml.online.beans;
 
+import javax.json.bind.annotation.JsonbTransient;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import io.quarkus.runtime.annotations.RegisterForReflection;
+import lombok.Getter;
+import lombok.Setter;
 
-/**
- * Root Type for CustomField
- * <p>
- * 
- * 
- */
+@RegisterForReflection
+@Entity
+@Table(name = "custom_fields")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "displayName",
-    "key"
+  "displayName",
+  "key"
 })
-public class CustomField {
+public class CustomField extends PanacheEntity {
 
-    @JsonProperty("displayName")
-    private String displayName;
-    @JsonProperty("key")
-    private String key;
+  @Column(name = "displayName")
+  @JsonProperty("displayName")
+  @Getter @Setter
+  private String displayName;
 
-    @JsonProperty("displayName")
-    public String getDisplayName() {
-        return displayName;
-    }
+  @Column(name = "key")
+  @JsonProperty("key")
+  @Getter @Setter
+  private String key;
 
-    @JsonProperty("displayName")
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
-    }
-
-    @JsonProperty("key")
-    public String getKey() {
-        return key;
-    }
-
-    @JsonProperty("key")
-    public void setKey(String key) {
-        this.key = key;
-    }
-
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "procesarId", nullable = false)
+  @JsonbTransient
+  @Getter @Setter
+  private Procesar procesar;
 }

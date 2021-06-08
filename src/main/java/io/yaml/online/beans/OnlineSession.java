@@ -1,95 +1,39 @@
 package io.yaml.online.beans;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.json.bind.Jsonb;
+import javax.json.bind.JsonbBuilder;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import io.quarkus.runtime.annotations.RegisterForReflection;
+import lombok.Getter;
+import lombok.Setter;
 
-/**
- * 
- */
+@RegisterForReflection
+@Entity
+@Table(name = "online_sessions")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "id",
-    "usersConnected",
-    "procesar"
+  "id",
+  "procesar"
 })
-public class OnlineSession {
+public class OnlineSession extends PanacheEntity{
 
-    /**
-     * 
-     * (Required)
-     * 
-     */
-    @JsonProperty("id")
-    @JsonPropertyDescription("")
-    private String id;
-    /**
-     * 
-     */
-    @JsonProperty("usersConnected")
-    @JsonPropertyDescription("")
-    private List<String> usersConnected = new ArrayList<String>();
-    /**
-     * 
-     */
-    @JsonProperty("procesar")
-    @JsonPropertyDescription("")
-    private Procesar procesar;
+  private static Jsonb jsonb = JsonbBuilder.create();
 
-    /**
-     * 
-     * (Required)
-     * 
-     */
-    @JsonProperty("id")
-    public String getId() {
-        return id;
-    }
+  @OneToOne(mappedBy = "onlineSession", cascade = CascadeType.ALL, orphanRemoval = true)
+  @JsonProperty("procesar")
+  @Getter @Setter
+  private Procesar procesar;
 
-    /**
-     * 
-     * (Required)
-     * 
-     */
-    @JsonProperty("id")
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    /**
-     * 
-     */
-    @JsonProperty("usersConnected")
-    public List<String> getUsersConnected() {
-        return usersConnected;
-    }
-
-    /**
-     * 
-     */
-    @JsonProperty("usersConnected")
-    public void setUsersConnected(List<String> usersConnected) {
-        this.usersConnected = usersConnected;
-    }
-
-    /**
-     * 
-     */
-    @JsonProperty("procesar")
-    public Procesar getProcesar() {
-        return procesar;
-    }
-
-    /**
-     * 
-     */
-    @JsonProperty("procesar")
-    public void setProcesar(Procesar procesar) {
-        this.procesar = procesar;
-    }
-
+  public String toJson() {
+    return jsonb.toJson(this);
+  }
 }
