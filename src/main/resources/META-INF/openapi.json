@@ -1,0 +1,213 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "New API",
+        "version": "1.0.0",
+        "description": "A brand new API with no content.  Go nuts!"
+    },
+    "paths": {
+        "/onlinesessions": {
+            "summary": "Path used to manage the list of onlinesessions.",
+            "description": "The REST endpoint/path used to list and create zero or more `OnlineSession` entities.  This path contains a `GET` and `POST` operation to perform the list and create tasks, respectively.",
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/OnlineSession"
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Successful response - returns an array of `OnlineSession` entities."
+                    }
+                },
+                "operationId": "getonlinesessions",
+                "summary": "List All onlinesessions",
+                "description": "Gets a list of all `OnlineSession` entities."
+            },
+            "post": {
+                "requestBody": {
+                    "description": "A new `OnlineSession` to be created.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/OnlineSession"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful response."
+                    }
+                },
+                "operationId": "createOnlineSession",
+                "summary": "Create a OnlineSession",
+                "description": "Creates a new instance of a `OnlineSession`."
+            }
+        },
+        "/onlinesessions/{onlinesessionId}": {
+            "summary": "Path used to manage a single OnlineSession.",
+            "description": "The REST endpoint/path used to get, update, and delete single instances of an `OnlineSession`.  This path contains `GET`, `PUT`, and `DELETE` operations used to perform the get, update, and delete tasks, respectively.",
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/OnlineSession"
+                                }
+                            }
+                        },
+                        "description": "Successful response - returns a single `OnlineSession`."
+                    }
+                },
+                "operationId": "getOnlineSession",
+                "summary": "Get a OnlineSession",
+                "description": "Gets the details of a single instance of a `OnlineSession`."
+            },
+            "put": {
+                "requestBody": {
+                    "description": "Updated `OnlineSession` information.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/OnlineSession"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "202": {
+                        "description": "Successful response."
+                    }
+                },
+                "operationId": "updateOnlineSession",
+                "summary": "Update a OnlineSession",
+                "description": "Updates an existing `OnlineSession`."
+            },
+            "delete": {
+                "responses": {
+                    "204": {
+                        "description": "Successful response."
+                    }
+                },
+                "operationId": "deleteOnlineSession",
+                "summary": "Delete a OnlineSession",
+                "description": "Deletes an existing `OnlineSession`."
+            },
+            "parameters": [
+                {
+                    "name": "onlinesessionId",
+                    "description": "A unique identifier for a `OnlineSession`.",
+                    "schema": {
+                        "type": "string"
+                    },
+                    "in": "path",
+                    "required": true
+                }
+            ]
+        }
+    },
+    "components": {
+        "schemas": {
+            "ProgressField": {
+                "title": "Root Type for ProgressField",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "field": {
+                        "type": "string"
+                    },
+                    "firstState": {
+                        "type": "string"
+                    },
+                    "secondState": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "field": "field1",
+                    "firstState": "firstState1",
+                    "secondState": "secondState1"
+                }
+            },
+            "CustomField": {
+                "title": "Root Type for CustomField",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "displayName": {
+                        "type": "string"
+                    },
+                    "key": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "displayName": "displayName1",
+                    "key": "key1"
+                }
+            },
+            "Procesar": {
+                "description": "",
+                "required": [
+                    "items",
+                    "idField"
+                ],
+                "type": "object",
+                "properties": {
+                    "items": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "idField": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "customFields": {
+                        "description": "",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CustomField"
+                        }
+                    },
+                    "progressField": {
+                        "$ref": "#/components/schemas/ProgressField",
+                        "description": ""
+                    }
+                }
+            },
+            "OnlineSession": {
+                "description": "",
+                "required": [
+                    "id"
+                ],
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "usersConnected": {
+                        "description": "",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "procesar": {
+                        "$ref": "#/components/schemas/Procesar",
+                        "description": ""
+                    }
+                }
+            }
+        }
+    }
+}
