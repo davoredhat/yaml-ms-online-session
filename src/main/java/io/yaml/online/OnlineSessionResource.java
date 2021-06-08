@@ -19,7 +19,8 @@ public interface OnlineSessionResource {
    */
   @POST
   @Consumes("application/json")
-  void createOnlineSession(OnlineSession data);
+  @Produces("application/json")
+  OnlineSession createOnlineSession(OnlineSession data);
 
   /**
    * Gets the details of a single instance of a `OnlineSession`.
