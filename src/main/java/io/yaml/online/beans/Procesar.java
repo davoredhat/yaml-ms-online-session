@@ -40,12 +40,12 @@ public class Procesar extends PanacheEntity {
   @Getter @Setter
   private String items;
 
-  @Column(name = "idField")
+  @Column(name = "id_field")
   @JsonProperty("idField")
   @Getter @Setter
   private String idField;
 
-  @Column(name = "nameField")
+  @Column(name = "name_field")
   @JsonProperty("nameField")
   @Getter @Setter
   private String nameField;
@@ -61,7 +61,7 @@ public class Procesar extends PanacheEntity {
   private ProgressField progressField;
 
   @OneToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name="onlineSessionId", nullable = false)
+  @JoinColumn(name="online_session_id", nullable = false)
   @JsonbTransient
   @Getter @Setter
   private OnlineSession onlineSession;
