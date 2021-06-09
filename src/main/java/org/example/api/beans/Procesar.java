@@ -1,134 +1,69 @@
 
 package org.example.api.beans;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import javax.json.bind.annotation.JsonbTransient;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import io.quarkus.runtime.annotations.RegisterForReflection;
+import lombok.Getter;
+import lombok.Setter;
 
-/**
- * 
- */
+@RegisterForReflection
+@Entity
+@Table(name = "procesars")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "items",
-    "idField",
-    "customFields",
-    "progressField"
+  "id",
+  "items",
+  "idField",
+  "nameField",
+  "customFields",
+  "progressField"
 })
-public class Procesar {
+public class Procesar extends PanacheEntity {
 
-    /**
-     * 
-     * (Required)
-     * 
-     */
-    @JsonProperty("items")
-    @JsonPropertyDescription("")
-    private String items;
-    /**
-     * 
-     * (Required)
-     * 
-     */
-    @JsonProperty("idField")
-    @JsonPropertyDescription("")
-    private String idField;
-    /**
-     * 
-     */
-    @JsonProperty("customFields")
-    @JsonPropertyDescription("")
-    private List<CustomField> customFields = new ArrayList<CustomField>();
-    /**
-     * Root Type for ProgressField
-     * <p>
-     * 
-     * 
-     */
-    @JsonProperty("progressField")
-    @JsonPropertyDescription("")
-    private ProgressField progressField;
+  @Column(name = "items", length = 10000000)
+  @JsonProperty("items")
+  @Getter @Setter
+  private String items;
 
-    /**
-     * 
-     * (Required)
-     * 
-     */
-    @JsonProperty("items")
-    public String getItems() {
-        return items;
-    }
+  @Column(name = "id_field")
+  @JsonProperty("idField")
+  @Getter @Setter
+  private String idField;
 
-    /**
-     * 
-     * (Required)
-     * 
-     */
-    @JsonProperty("items")
-    public void setItems(String items) {
-        this.items = items;
-    }
+  @Column(name = "name_field")
+  @JsonProperty("nameField")
+  @Getter @Setter
+  private String nameField;
 
-    /**
-     * 
-     * (Required)
-     * 
-     */
-    @JsonProperty("idField")
-    public String getIdField() {
-        return idField;
-    }
+  @OneToMany(mappedBy = "procesar", cascade = CascadeType.ALL, orphanRemoval = true)
+  @JsonProperty("customFields")
+  @Getter @Setter
+  private List<CustomField> customFields;
 
-    /**
-     * 
-     * (Required)
-     * 
-     */
-    @JsonProperty("idField")
-    public void setIdField(String idField) {
-        this.idField = idField;
-    }
+  @OneToOne(mappedBy = "procesar", cascade = CascadeType.ALL, orphanRemoval = true)
+  @JsonProperty("progressField")
+  @Getter @Setter
+  private ProgressField progressField;
 
-    /**
-     * 
-     */
-    @JsonProperty("customFields")
-    public List<CustomField> getCustomFields() {
-        return customFields;
-    }
-
-    /**
-     * 
-     */
-    @JsonProperty("customFields")
-    public void setCustomFields(List<CustomField> customFields) {
-        this.customFields = customFields;
-    }
-
-    /**
-     * Root Type for ProgressField
-     * <p>
-     * 
-     * 
-     */
-    @JsonProperty("progressField")
-    public ProgressField getProgressField() {
-        return progressField;
-    }
-
-    /**
-     * Root Type for ProgressField
-     * <p>
-     * 
-     * 
-     */
-    @JsonProperty("progressField")
-    public void setProgressField(ProgressField progressField) {
-        this.progressField = progressField;
-    }
-
+  @OneToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name="online_session_id", nullable = false)
+  @JsonbTransient
+  @Getter @Setter
+  private OnlineSession onlineSession;
 }
