@@ -1,5 +1,5 @@
-/opt/apoyoCaio/temp/src/main/java/org/example/api/beans/Procesar.java
-/opt/apoyoCaio/temp/src/main/java/org/example/api/beans/CustomField.java
-/opt/apoyoCaio/temp/src/main/java/org/example/api/OnlinesessionsResource.java
-/opt/apoyoCaio/temp/src/main/java/org/example/api/beans/OnlineSession.java
-/opt/apoyoCaio/temp/src/main/java/org/example/api/beans/ProgressField.java
+/opt/apoyoCaio/yaml-ms-online-session/src/main/java/org/example/api/OnlinesessionsResource.java
+/opt/apoyoCaio/yaml-ms-online-session/src/main/java/org/example/api/beans/ProgressField.java
+/opt/apoyoCaio/yaml-ms-online-session/src/main/java/org/example/api/beans/CustomField.java
+/opt/apoyoCaio/yaml-ms-online-session/src/main/java/org/example/api/beans/OnlineSession.java
+/opt/apoyoCaio/yaml-ms-online-session/src/main/java/org/example/api/beans/Procesar.java
